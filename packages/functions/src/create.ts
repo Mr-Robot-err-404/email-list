@@ -5,7 +5,7 @@ import dynamoDb from "@mailing-list/core/dynamodb"
 
 export const main = handler(async (event) => {
   let data = {
-    content: "",
+    email: "",
     username: ""
   }
 
@@ -17,7 +17,7 @@ export const main = handler(async (event) => {
     TableName: Table.Emails.tableName,
     Item: {
       userId: uuid.v1(), 
-      email: data.content, 
+      email: data.email, 
       username: data.username,
       createdAt: Date.now(), 
     },
