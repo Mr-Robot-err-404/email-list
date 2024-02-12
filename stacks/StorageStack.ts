@@ -20,17 +20,7 @@ export function StorageStack({ stack }: StackContext) {
     },
   })
 
-  const version_history = new Table(stack, "VersionHistory", {
-    fields: {
-      id: "string",
-      version: "string",
-      releaseDate: "string",
-    },
-    primaryIndex: { partitionKey: "id" }
-  })
-
   return {
-    table,
-    version_history
+    table
   }
 }

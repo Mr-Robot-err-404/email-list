@@ -1,4 +1,3 @@
-import { MdModeEdit } from "react-icons/md"
 import { FaRegTrashAlt } from "react-icons/fa"
 import { RxCross1 } from "react-icons/rx"
 import { TiTick } from "react-icons/ti"
@@ -15,9 +14,10 @@ interface Props {
     id: string
     items: Item[]
     setItems: React.Dispatch<React.SetStateAction<Item[]>>
+    img: string
 }
 
-export function Card({ idx, username, email, id, items, setItems, }: Props) {
+export function Card({ idx, username, email, id, items, setItems, img }: Props) {
     const [toggle, setToggle] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -54,18 +54,15 @@ export function Card({ idx, username, email, id, items, setItems, }: Props) {
     return (
         <div className="flex h-16 w-full justify-between items-center bg-slate-700 px-5 cursor-default">
             <div className="h-12 w-12 rounded-full bg-slate-500">
-                <img className="rounded-full" src="/WALL-E.jpg"></img>
+                <img className="rounded-full" src={img}></img>
             </div>
             <div className="flex flex-col items-center justify-center ml-5">
                 <h2 className="text-slate-200 text-md">{username}</h2>
                 <h2 className="text-xs text-slate-300">{email}</h2>
             </div>
-            <div className="flex space-x-1 items-center">
+            <div className="flex space-x-1 w-20 items-center justify-center">
                 {!toggle && !loading &&
                     <>
-                        <div className="flex justify-center items-center hover:bg-slate-500 rounded-full cursor-pointer w-10 h-10">
-                            <MdModeEdit color="#e2e8f0"/>
-                        </div>
                         <div onClick={() => setToggle(true)} className="flex justify-center items-center hover:bg-slate-500 rounded-full cursor-pointer w-10 h-10">
                             <FaRegTrashAlt color="#e2e8f0"/>
                         </div>

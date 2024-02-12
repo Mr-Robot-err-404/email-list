@@ -1,4 +1,5 @@
 import { Card } from "./Card"
+import { profiles } from '../../lib/profiles'
 
 export interface Item {
     email: string
@@ -16,7 +17,9 @@ export function List({ items, setItems }: Props) {
     return (
         <>
             {items.map((item, idx) => {
-                return <Card key={idx} email={item.email} username={item.username} id={item.userId} idx={idx} items={items} setItems={setItems}/>
+                const imgIdx = idx % 4
+                const img = profiles[imgIdx]
+                return <Card key={idx} img={img} email={item.email} username={item.username} id={item.userId} idx={idx} items={items} setItems={setItems}/>
             })}
         </>
     )

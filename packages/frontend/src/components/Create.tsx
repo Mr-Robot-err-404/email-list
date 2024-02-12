@@ -4,6 +4,7 @@ import { post } from "aws-amplify/api"
 import { Item } from "./List"
 import { Loading } from "./Loading"
 import toast from "react-hot-toast"
+import { generate } from '../../lib/generate'
 
 interface Props {
     toggle: boolean
@@ -56,13 +57,26 @@ export function CreateUser({ toggle, setToggle, setItems }: Props) {
             if(emailRef.current && usernameRef.current) {
                 emailRef.current.value = ""
                 usernameRef.current.value = ""
+                setEmail("")
+                setUsername("")
             }
-            toast.success("user created... check your inbox!")
+            toast.success("user created... check your inbox!", { duration: 3000 })
         } 
         catch (error) {
             toast.error("something went wrong...")
         }
         setLoading(false)
+    }
+
+    function generateUser() {
+        const option = generate()
+        
+        if(emailRef.current && usernameRef.current) {
+            emailRef.current.value = option.email
+            usernameRef.current.value = option.username
+            setEmail(option.email)
+            setUsername(option.username)
+        }
     }
 
     return (
@@ -79,32 +93,41 @@ export function CreateUser({ toggle, setToggle, setItems }: Props) {
                     <div className="flex flex-col space-y-2 py-2 px-5">
                         <input 
                             onChange={(e) => setUsername(e.target.value)} 
-                            className="bg-transparent border rounded w-full py-1 px-5 text-slate-200 focus:outline-none" 
+                            className="bg-transparent list-none border rounded w-full py-1 px-5 text-slate-200 focus:outline-none" 
                             id="username" 
                             type="text" 
+                            autoComplete="off"
                             ref={usernameRef}
                             placeholder="Username">
                         </input>
 
                         <input 
                             onChange={(e) => setEmail(e.target.value)} 
-                            className="bg-transparent border rounded w-full py-1 px-5 text-slate-200 focus:outline-none" 
+                            className="bg-transparent list-none border rounded w-full py-1 px-5 text-slate-200 focus:outline-none" 
                             id="email" 
                             type="text" 
                             ref={emailRef}
+                            autoComplete="off"
                             placeholder="Email">
                         </input>
                     </div>
-                    <div className="px-5">
-                        <button 
-                        onClick={handleSubmit} 
-                        disabled={!validate() || loading} 
-                        className="py-1 px-2 text-slate-200 border-2 min-w-10 border-slate-400 rounded-md hover:border-slate-300">
-                            {loading  
-                                ? <Loading width={25} height={25}/>
-                                : "Submit"
-                            }
-                        </button>
+                    <div className="w-40 flex justify-center">
+                        {(!username.length || !email.length) &&
+                            <button onClick={generateUser} className="py-1 px-2 text-slate-200 border-2 min-w-10 border-slate-400 rounded-md hover:border-slate-300">
+                                generate user
+                            </button>
+                        }
+                        {username.length > 0 && email.length > 0 && !loading && 
+                            <button 
+                            onClick={handleSubmit} 
+                            disabled={!validate() || loading} 
+                            className="py-1 px-2 text-slate-200 border-2 min-w-10 ml-8 border-slate-400 rounded-md hover:border-slate-300">
+                                submit
+                            </button>
+                        }
+                        {loading && 
+                            <Loading width={30} height={30}/>
+                        }
                     </div>
                 </div>
             }

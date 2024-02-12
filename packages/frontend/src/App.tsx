@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { get } from 'aws-amplify/api'
 import { Loading } from './components/Loading'
 import { Toaster } from 'react-hot-toast'
+import { IoIosMail } from "react-icons/io";
 
 function App() {
   const [toggle, setToggle] = useState(false)
@@ -39,7 +40,8 @@ function App() {
     <>
       <div className="flex h-screen w-full items-center justify-center">
         <div className="flex h-auto min-h-80 w-full flex-col space-y-2 rounded-lg bg-slate-800 sm:w-1/3 min-w-96 relative">
-          <div className="flex w-full justify-center py-3">
+          <div className="flex space-x-2 w-full justify-center items-center py-3">
+            <IoIosMail color='#e2e8f0' size={25}/>
             <h2 className="text-lg text-slate-200">Mailing List</h2>
           </div>
           {!loading && 
