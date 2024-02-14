@@ -8,7 +8,7 @@ const options = [
         email: "vincentvega7732@gmail.com"
     },
     {
-        username: "Mia_Wallace",
+        username: "Dr_Schultz",
         email: "darthplagus50@gmail.com" 
     } 
 ]
