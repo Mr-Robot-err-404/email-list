@@ -15,7 +15,6 @@ export function ApiStack({ stack }: StackContext) {
       "POST /emails": "packages/functions/src/create.main",
       "DELETE /emails/{id}": "packages/functions/src/delete.main",
     },
-    
   })
 
   stack.addOutputs({

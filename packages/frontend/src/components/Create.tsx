@@ -5,14 +5,16 @@ import { Item } from "./List"
 import { Loading } from "./Loading"
 import toast from "react-hot-toast"
 import { generate } from '../../lib/generate'
+import { isItem } from '../../lib/isItem'
 
 interface Props {
     toggle: boolean
     setToggle: (bool: boolean) => void
+    items: Item[]
     setItems: React.Dispatch<React.SetStateAction<Item[]>>
 }
 
-export function CreateUser({ toggle, setToggle, setItems }: Props) {
+export function CreateUser({ toggle, setToggle, items, setItems }: Props) {
     const [username, setUsername] = useState<string>("")
     const [email, setEmail] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(false)
@@ -22,6 +24,9 @@ export function CreateUser({ toggle, setToggle, setItems }: Props) {
 
     function validate() {
         if(!email.length || !username.length) {
+            return false
+        }
+        if(isItem(items, email)) {
             return false
         }
         return true

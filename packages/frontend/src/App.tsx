@@ -47,7 +47,7 @@ function App() {
           {!loading && 
             <>
               <List items={items} setItems={setItems}/>
-              <CreateUser toggle={toggle} setToggle={setToggle} setItems={setItems}/>
+              <CreateUser toggle={toggle} setToggle={setToggle} items={items} setItems={setItems}/>
             </>
           }
           {loading && 
