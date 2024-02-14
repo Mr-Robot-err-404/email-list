@@ -26,9 +26,6 @@ export function CreateUser({ toggle, setToggle, items, setItems }: Props) {
         if(!email.length || !username.length) {
             return false
         }
-        if(isItem(items, email)) {
-            return false
-        }
         return true
     }
 
@@ -51,6 +48,11 @@ export function CreateUser({ toggle, setToggle, items, setItems }: Props) {
 
     async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
+
+        if(isItem(items, email)) {
+            toast.error("email already exists")
+            return false
+        }
 
         setLoading(true)
 
